@@ -25,6 +25,7 @@ public class WelcomeAction extends HttpServlet {
 		context.setAttribute("currentTime", System.currentTimeMillis());
 		HttpSession session = request.getSession();
 		session.setAttribute("loggedInUser", "keyur");
+		System.out.println("=============");
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 		requestDispatcher.forward(request, response);				
 	}
