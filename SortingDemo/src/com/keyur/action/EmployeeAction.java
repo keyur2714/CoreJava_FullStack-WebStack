@@ -2,9 +2,11 @@ package com.keyur.action;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -17,6 +19,23 @@ public class EmployeeAction {
 
 	public static void main(String[] args) {
 		List<EmployeeDTO> empList = getEmployeeList();
+		
+		Map<String,List<EmployeeDTO>> deptEmployeeMap = new HashMap<>();
+		List<EmployeeDTO> tempList = new ArrayList<EmployeeDTO>();
+		
+		for(EmployeeDTO employeeDTO : empList) {
+			if(deptEmployeeMap.containsKey(employeeDTO.getDepartment())) {
+				deptEmployeeMap.get(employeeDTO.getDepartment()).add(employeeDTO);
+			}else {
+				tempList.add(employeeDTO);				
+				deptEmployeeMap.put(employeeDTO.getDepartment(), tempList);
+				tempList = new ArrayList<EmployeeDTO>();
+			}
+		}
+		
+		for(Map.Entry<String, List<EmployeeDTO>> entry : deptEmployeeMap.entrySet()) {
+			System.out.println(entry.getKey()+" "+entry.getValue().size());
+		}
 		
 		Iterator<EmployeeDTO> empListIterator = empList.iterator();
 		
