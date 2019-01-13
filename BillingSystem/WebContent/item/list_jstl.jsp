@@ -16,7 +16,7 @@
 							</tr>
 						</thead>	
 						<tbody>							
-							<c:forEach var="item" items="${requestScope.itemList}">
+							<c:forEach var="item" items="${sessionScope.itemList}">
 								<c:if test="${item.code != 'CCOFFEE' }">
 									<tr>
 										<td><a href="${pageContext.request.contextPath}/ManageItemController?action=detail&id=${item.id}">${item.id}</a></td>
@@ -31,7 +31,19 @@
 				</div>
 			</div>		
 		</div>
+		<c:if test="${item != null}">
+			<div class="col-md-6">
+				<jsp:include page="detail.jsp"></jsp:include>
+			</div>
+		</c:if>		
 	</div>
+	<c:if test="${sessionScope.orderItemList.size() > 0}">
+		<div class="row">
+			<div class="col-md-6">
+					<jsp:include page="orderItemList.jsp"></jsp:include>
+			</div>
+		</div>
+	</c:if>	
 	<jsp:include page="../footer.jsp"/>
 </div>
 
