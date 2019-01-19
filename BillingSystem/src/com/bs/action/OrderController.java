@@ -1,6 +1,7 @@
 package com.bs.action;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.keyur.dto.ItemDTO;
+import com.keyur.dto.OrderDTO;
 import com.keyur.dto.OrderItemDTO;
 import com.keyur.service.ItemService;
+import com.keyur.service.OrderService;
 import com.keyur.service.impl.ItemServiceImpl;
+import com.keyur.service.impl.OrderServiceImpl;
 @WebServlet("/OrderController")
 public class OrderController extends HttpServlet{
 
@@ -30,6 +34,7 @@ public class OrderController extends HttpServlet{
 	List<OrderItemDTO> orderItemList = null;
 	List<ItemDTO> itemList = new ArrayList<ItemDTO>();
 	ItemService itemService = new ItemServiceImpl();
+	OrderService orderService = new OrderServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		session = request.getSession();
@@ -61,6 +66,14 @@ public class OrderController extends HttpServlet{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}						
+		}else if("placeOrder".equalsIgnoreCase(action)) {
+			orderItemList = (ArrayList)session.getAttribute("orderItemList");
+			OrderDTO orderDTO = new OrderDTO();
+			orderDTO.setOrderDate(new Date(System.currentTimeMillis()));
+			int result = orderService.placeOrder(orderDTO, orderItemList);
+			if(result == 0) {
+				request.setAttribute("msg", "Order Placed Successfully.");
+			}
 		}
 		requestDispatcher = request.getRequestDispatcher(successPage);
 		requestDispatcher.forward(request, response);

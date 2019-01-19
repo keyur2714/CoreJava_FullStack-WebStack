@@ -1,4 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script type="text/javascript">
+	function placeOrder(){
+		var url = "${pageContext.request.contextPath}/OrderController?action=placeOrder";
+		document.location.href = url;
+	}
+</script>
 <div class="container-fluid">		
 	<jsp:include page="../header.jsp"></jsp:include>
 	<div class="row">
@@ -39,8 +45,16 @@
 	</div>
 	<c:if test="${sessionScope.orderItemList.size() > 0}">
 		<div class="row">
+			<div class=col alert alert-success>
+				${msg}
+			</div>
+		</div>		
+		<div class="row">
 			<div class="col-md-6">
 					<jsp:include page="orderItemList.jsp"></jsp:include>
+			</div>
+			<div class="col-md-6">				
+				<button class="btn btn-primary" onclick="placeOrder()">Place Order</button>
 			</div>
 		</div>
 	</c:if>	

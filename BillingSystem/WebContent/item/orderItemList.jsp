@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<table class="table table-striped table-dark">
+<table class="table table-striped table-info">
 	<thead>
 		<tr>
 			<th>Item Desc</th>
