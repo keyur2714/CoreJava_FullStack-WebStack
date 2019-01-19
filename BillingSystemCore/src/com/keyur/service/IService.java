@@ -9,6 +9,6 @@ public interface IService<T> {
 	int save(T type) throws SQLException;
 	int update(T type) throws SQLException;
 	void delete(int id) throws SQLException;
-	ItemDTO get(int id) throws SQLException;
+	T get(int id) throws SQLException;
 	List<T> list() throws SQLException;
 }

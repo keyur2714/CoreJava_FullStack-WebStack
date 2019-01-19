@@ -20,7 +20,7 @@ public class ItemDAOImpl implements ItemDAO {
 	int result = 0;
 
 	@Override
-	public int save(ItemDTO itemDTO) throws SQLException {
+	public long save(ItemDTO itemDTO) throws SQLException {
 		query = "insert into item_details (code,description,price) values (?,?,?)";
 		int paramCnt = 1;
 		try {

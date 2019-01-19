@@ -16,7 +16,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public int save(ItemDTO studentDTO) throws SQLException {
 		try {
-			result = studentDAO.save(studentDTO);
+			result = (int) studentDAO.save(studentDTO);
 		} catch (SQLException e) {
 			throw e;
 		}
