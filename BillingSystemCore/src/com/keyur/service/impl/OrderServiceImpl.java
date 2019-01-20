@@ -40,8 +40,10 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OrderDTO get(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		OrderDTO orderDTO = orderDAO.get(id);
+		if(orderDTO != null) 
+			orderDTO.setOrderItemList(orderItemListDAO.getOrderItemListByOrderId(orderDTO.getOrderId()));
+		return orderDTO;
 	}
 
 	@Override
@@ -54,11 +56,18 @@ public class OrderServiceImpl implements OrderService {
 	public int placeOrder(OrderDTO orderDTO,List<OrderItemDTO> orderItemList) {
 		int success = 0;
 		try {
-			long orderId = orderDAO.save(orderDTO);
-			
-			for(OrderItemDTO orderItem : orderItemList) {
-				orderItem.setOrderId((int)orderId);
-				orderItemListDAO.save(orderItem);
+			if(orderItemList != null && orderItemList.size() > 0) {
+				int orderId = (int)orderDAO.save(orderDTO);
+				double totalPrice = 0.0; 
+				for(OrderItemDTO orderItem : orderItemList) {
+					orderItem.setOrderId((int)orderId);
+					orderItemListDAO.save(orderItem);
+					totalPrice = totalPrice + (orderItem.getUnitPrice() * orderItem.getQuantity());
+				}
+				orderDTO.setTotalPrice(totalPrice);
+				orderDTO.setOrderId(orderId);
+				success = orderDAO.update(orderDTO);
+				success = orderDTO.getOrderId();
 			}
 		}catch(Exception e) {
 			success = -1;

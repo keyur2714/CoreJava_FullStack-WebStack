@@ -42,13 +42,18 @@
 				<jsp:include page="detail.jsp"></jsp:include>
 			</div>
 		</c:if>		
-	</div>
-	<c:if test="${sessionScope.orderItemList.size() > 0}">
-		<div class="row">
-			<div class=col alert alert-success>
-				${msg}
+		<c:if test="${order != null}">
+			<div class="col-md-6">
+				<jsp:include page="orderDetail.jsp"></jsp:include>
 			</div>
-		</div>		
+		</c:if>
+	</div>
+	<div class="row">
+		<div class=col alert alert-success>			
+			Order #<a href="${pageContext.request.contextPath}/OrderController?action=orderDetail&orderId=${orderId}">${orderId}</a> ${msg}
+		</div>
+	</div>			
+	<c:if test="${sessionScope.orderItemList.size() > 0}">		
 		<div class="row">
 			<div class="col-md-6">
 					<jsp:include page="orderItemList.jsp"></jsp:include>

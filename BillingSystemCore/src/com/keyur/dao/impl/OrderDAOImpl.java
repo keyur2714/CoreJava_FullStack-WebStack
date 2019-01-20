@@ -17,7 +17,7 @@ public class OrderDAOImpl implements OrderDAO{
 	ResultSet resultSet;
 	String query;
 	long result = 0;
-	
+		
 	@Override
 	public long save(OrderDTO orderDTO) throws SQLException {
 		query = "insert into order_details (order_date,total_price) values (?,?)";
@@ -43,9 +43,24 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public int update(OrderDTO type) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(OrderDTO orderDTO) throws SQLException {
+		query = "update order_details set total_price = ? where order_id = ?";
+		int paramCnt = 1;
+		int result = 0;
+		try {
+			connection = DbConnectionUti.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.clearParameters();
+			preparedStatement.setDouble(paramCnt++, orderDTO.getTotalPrice());
+			preparedStatement.setInt(paramCnt++, orderDTO.getOrderId());
+			result = preparedStatement.executeUpdate();			
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			closePreparedStatement();
+		}
+
+		return result;	
 	}
 
 	@Override
@@ -70,7 +85,7 @@ public class OrderDAOImpl implements OrderDAO{
 				orderDTO.setOrderId(resultSet.getInt(1));
 				orderDTO.setOrderDate(resultSet.getDate(2));
 				orderDTO.setTotalPrice(resultSet.getDouble(3));				
-			}
+			}			
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -84,7 +99,7 @@ public class OrderDAOImpl implements OrderDAO{
 	public List<OrderDTO> list() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}	
 	
 	private void closePreparedStatement() {
 		if (preparedStatement != null) {

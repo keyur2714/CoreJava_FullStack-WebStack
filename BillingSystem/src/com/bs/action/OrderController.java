@@ -71,9 +71,21 @@ public class OrderController extends HttpServlet{
 			OrderDTO orderDTO = new OrderDTO();
 			orderDTO.setOrderDate(new Date(System.currentTimeMillis()));
 			int result = orderService.placeOrder(orderDTO, orderItemList);
-			if(result == 0) {
-				request.setAttribute("msg", "Order Placed Successfully.");
+			if(result != -1){
+				request.setAttribute("msg", "Placed Successfully.");
+				request.setAttribute("orderId", result);
 			}
+			session.removeAttribute("orderItemList");
+			session.removeAttribute("item");
+		}else if("orderDetail".equalsIgnoreCase(action)) {
+			int orderId = Integer.parseInt(request.getParameter("orderId"));
+			try {
+				OrderDTO orderDTO = orderService.get(orderId);
+				request.setAttribute("order",orderDTO);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
 		}
 		requestDispatcher = request.getRequestDispatcher(successPage);
 		requestDispatcher.forward(request, response);

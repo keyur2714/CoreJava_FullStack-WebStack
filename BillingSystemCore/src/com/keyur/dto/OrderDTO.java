@@ -1,11 +1,13 @@
 package com.keyur.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 public class OrderDTO {
 	private int orderId;
 	private Date orderDate;
 	private double totalPrice;
+	private List<OrderItemDTO> orderItemList;
 
 	public int getOrderId() {
 		return orderId;
@@ -31,4 +33,13 @@ public class OrderDTO {
 		this.totalPrice = totalPrice;
 	}
 
+	public List<OrderItemDTO> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(List<OrderItemDTO> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
+	
 }
