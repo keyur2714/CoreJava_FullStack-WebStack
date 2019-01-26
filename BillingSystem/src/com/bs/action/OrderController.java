@@ -82,10 +82,22 @@ public class OrderController extends HttpServlet{
 			try {
 				OrderDTO orderDTO = orderService.get(orderId);
 				request.setAttribute("order",orderDTO);
+			
+				request.setAttribute("from", request.getParameter("from"));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
+		}else if("list".equalsIgnoreCase(action)) {
+			try {
+				List<OrderDTO> orderList = orderService.list();
+				request.setAttribute("orderList", orderList);				
+				successPage = "item/order_list.jsp";
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		requestDispatcher = request.getRequestDispatcher(successPage);
 		requestDispatcher.forward(request, response);

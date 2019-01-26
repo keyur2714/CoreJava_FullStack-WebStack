@@ -12,7 +12,7 @@
 	}
 </script>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<div class="card text-white">
 			<div class="card-header bg-danger">Item Detail of
 				${item.description}</div>

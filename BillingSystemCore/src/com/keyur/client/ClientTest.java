@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import com.keyur.util.DbConnectionUti;
 
@@ -35,6 +36,14 @@ public class ClientTest {
 		}
 		
 		
+		String originalInput = "Bharat@26";
+		String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
+		System.out.println(encodedString);
+		
+		byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+		String decodedString = new String(decodedBytes);
+		
+		System.out.println(decodedString);
  	}
 
 }

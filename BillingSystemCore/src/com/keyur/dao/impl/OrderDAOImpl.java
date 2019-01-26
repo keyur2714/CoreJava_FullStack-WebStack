@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.keyur.dao.OrderDAO;
@@ -97,8 +98,28 @@ public class OrderDAOImpl implements OrderDAO{
 
 	@Override
 	public List<OrderDTO> list() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		query = "select order_id,order_date,total_price from order_details";		
+		List<OrderDTO> orderList = new ArrayList<OrderDTO>();
+		OrderDTO orderDTO = null;
+		try {
+			connection = DbConnectionUti.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.clearParameters();			
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				orderDTO = new OrderDTO();
+				orderDTO.setOrderId(resultSet.getInt(1));
+				orderDTO.setOrderDate(resultSet.getDate(2));
+				orderDTO.setTotalPrice(resultSet.getDouble(3));
+				orderList.add(orderDTO);
+			}			
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			closeResultSet();
+			closePreparedStatement();
+		}
+		return orderList;
 	}	
 	
 	private void closePreparedStatement() {

@@ -48,8 +48,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderDTO> list() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return orderDAO.list();
 	}
 
 	@Override

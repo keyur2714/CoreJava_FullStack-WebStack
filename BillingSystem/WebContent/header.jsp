@@ -11,6 +11,8 @@
 				</li>
 				<li class="nav-item"><a class="nav-link"
 					href="ManageItemController?action=list">Manage Item</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="OrderController?action=list">Manage Orders</a></li>	
 				<li class="nav-item"><a class="nav-link" href="#">About Us</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">Contact
