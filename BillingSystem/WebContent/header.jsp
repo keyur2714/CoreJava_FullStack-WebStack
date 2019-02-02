@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Billing System</title>
@@ -7,16 +8,29 @@
 	<div class="col">
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 			<ul class="navbar-nav">
-				<li class="nav-item active"><a class="nav-link" href="home.jsp">Home</a>
-				</li>
-				<li class="nav-item"><a class="nav-link"
-					href="ManageItemController?action=list">Manage Item</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="OrderController?action=list">Manage Orders</a></li>	
-				<li class="nav-item"><a class="nav-link" href="#">About Us</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Contact
-						Us</a></li>
+				<c:forEach var="menuItem" items="${menuItemList}">
+					<c:choose>
+						<c:when test="${user != null}">
+							<c:if test="${ menuItem.desc == 'Sign In' }">
+								<li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/LogoutAction">Logout</a>
+							</c:if>
+							<c:if test="${ menuItem.desc != 'Sign In' && user.roleCode == 'ADMIN'}">														
+								<li class="nav-item active"><a class="nav-link" href="${menuItem.url}">${menuItem.desc}</a>
+								</li>
+							</c:if>
+							<c:if test="${ menuItem.desc != 'Sign In' && user.roleCode == 'SELLER'}">
+								<c:if test="${ menuItem.desc != 'Manage Orders' }">								
+									<li class="nav-item active"><a class="nav-link" href="${menuItem.url}">${menuItem.desc}</a>
+									</li>
+								</c:if>
+							</c:if>
+						</c:when>
+						<c:when test="${user == null}">
+							<li class="nav-item active"><a class="nav-link" href="${menuItem.url}">${menuItem.desc}</a>
+						</li>
+						</c:when>
+					</c:choose>									
+				</c:forEach>				
 			</ul>
 		</nav>
 	</div>

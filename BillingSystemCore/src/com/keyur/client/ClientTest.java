@@ -35,8 +35,8 @@ public class ClientTest {
 			e.printStackTrace();
 		}
 		
-		
-		String originalInput = "Bharat@26";
+		//Bharat@26
+		String originalInput = "India@27";
 		String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
 		System.out.println(encodedString);
 		
