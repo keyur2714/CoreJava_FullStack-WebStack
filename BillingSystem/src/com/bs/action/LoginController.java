@@ -41,13 +41,14 @@ public class LoginController extends HttpServlet {
 					successPage = "home.jsp";
 					session = request.getSession();
 					session.setAttribute("user", userDTO);
+				}else {
+					errorMsg = "Invalid Username or password";
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				errorMsg = "Invalid Username or password";
-				request.setAttribute("errorMsg", errorMsg);
+				errorMsg = "Invalid Username or password";					
 			}
-						
+			request.setAttribute("errorMsg", errorMsg);									
 		}
 		requestDispatcher = request.getRequestDispatcher(successPage);
 		requestDispatcher.forward(request, response);

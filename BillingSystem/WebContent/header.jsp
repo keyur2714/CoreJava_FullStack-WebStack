@@ -26,7 +26,10 @@
 							</c:if>
 						</c:when>
 						<c:when test="${user == null}">
-							<li class="nav-item active"><a class="nav-link" href="${menuItem.url}">${menuItem.desc}</a>
+							<c:if test="${ menuItem.desc != 'Manage Orders' && menuItem.desc != 'Manage Item'}">								
+									<li class="nav-item active"><a class="nav-link" href="${menuItem.url}">${menuItem.desc}</a>
+									</li>
+							</c:if>							
 						</li>
 						</c:when>
 					</c:choose>									
