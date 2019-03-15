@@ -30,9 +30,9 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		String successPage = "auth/login.jsp";
-		if("auth".equalsIgnoreCase(action)) {
-			String userName = request.getParameter("username");
-			String password = request.getParameter("password");
+		String userName = request.getParameter("username");
+		String password = request.getParameter("password");
+		if("auth".equalsIgnoreCase(action) && userName != null && password != null) {			
 			String encodedPass = authService.encrypt(password);
 			String errorMsg = "";
 			try {

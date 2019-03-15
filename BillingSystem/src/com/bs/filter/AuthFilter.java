@@ -4,11 +4,14 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+
+import com.keyur.dto.UserDTO;
 
 /**
  * Servlet Filter implementation class AuthFilter
@@ -40,8 +43,21 @@ public class AuthFilter implements Filter {
 		// pass the request along the filter chain
 		HttpServletRequest httpServletReq = (HttpServletRequest)request;
 		System.out.println("=========="+httpServletReq.getContextPath());
-		System.out.println("=========="+httpServletReq.getRequestURI());
-		chain.doFilter(request, response);
+		System.out.println("=========="+httpServletReq.getServletPath());
+		String reqPath = httpServletReq.getServletPath();
+		if(reqPath.equals("/WelcomeAction")) {
+			chain.doFilter(request, response);
+		}else {
+			UserDTO userDTO = (UserDTO) httpServletReq.getSession().getAttribute("user");
+			System.out.println(userDTO);
+			if(userDTO != null) {
+				chain.doFilter(request, response);
+			}else {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/LoginController");
+				requestDispatcher.forward(request, response);
+			}
+		}
+		
 	}
 
 	/**
