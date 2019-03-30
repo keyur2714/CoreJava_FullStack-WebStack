@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<bean id="messageBean" class="com.webstack.bean.Message" scope="prototype">
+		<property name="message" value="Hello Radhe Krishna...!"></property>
+	</bean>
+
+	<bean id="springQuestionBean" class="com.webstack.service.impl.SpringQuestionServiceImpl">
+	</bean>
+
+	<bean id="angularQuestionBean" class="com.webstack.service.impl.AngularQuestionImpl">
+	</bean>
+		
+	<bean id="bigDataQuestionBean" class="com.webstack.service.impl.BigDataQuestionService">
+	</bean>		
+	
+	<bean id="examService1" class="com.webstack.service.impl.ExamServiceImpl">
+		<constructor-arg name="questionService" ref="angularQuestionBean"></constructor-arg>
+	</bean> 
+	
+	<bean id="examService" class="com.webstack.service.impl.ExamServiceImpl">
+		<property name="questionService" ref="bigDataQuestionBean"></property>
+	</bean> 
+</beans>
