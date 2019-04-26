@@ -6,7 +6,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-	<bean id="messageBean" class="com.webstack.bean.Message" scope="prototype">
+	<context:component-scan base-package="com.webstack.object"></context:component-scan>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:config.properties"></property>
+	</bean>
+
+	<bean id="messageBean" class="com.webstack.bean.Message" scope="prototype" >
 		<property name="message" value="Hello Radhe Krishna...!"></property>
 	</bean>
 
@@ -24,6 +30,6 @@
 	</bean> 
 	
 	<bean id="examService" class="com.webstack.service.impl.ExamServiceImpl">
-		<property name="questionService" ref="bigDataQuestionBean"></property>
+		<property name="questionService" ref="springQuestionBean"></property>
 	</bean> 
 </beans>

@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.webstack.bean.Message;
+import com.webstack.object.PersonDTO;
 import com.webstack.service.impl.ExamServiceImpl;
 
 public class ClientTest {
@@ -24,6 +25,13 @@ public class ClientTest {
 		
 		ExamServiceImpl examServiceImpl1 = applicationContext.getBean("examService1",ExamServiceImpl.class);
 		examServiceImpl1.startExam();
+		
+		//
+		
+		PersonDTO personDTO = applicationContext.getBean("personDTO",PersonDTO.class);
+		
+		System.out.println("Perosn Details...: "+personDTO.getPid()+" "+personDTO.getName()+" "+personDTO.getAge()+" "+personDTO.getGender());
+		System.out.println("Person Contact Details...: "+personDTO.getContactDTO().getMobileNo()+" "+personDTO.getContactDTO().getEmail());
 	}
 
 }
