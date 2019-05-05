@@ -1,8 +1,10 @@
 package com.webstack.client;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.webstack.bean.Department;
 import com.webstack.bean.Message;
 import com.webstack.object.PersonDTO;
 import com.webstack.service.impl.ExamServiceImpl;
@@ -11,7 +13,7 @@ public class ClientTest {
 
 	public static void main(String[] args) {
 		
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+		AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
 		
 		Message message = (Message) applicationContext.getBean("messageBean");
 		message.setMessage("Hi");
@@ -32,6 +34,14 @@ public class ClientTest {
 		
 		System.out.println("Perosn Details...: "+personDTO.getPid()+" "+personDTO.getName()+" "+personDTO.getAge()+" "+personDTO.getGender());
 		System.out.println("Person Contact Details...: "+personDTO.getContactDTO().getMobileNo()+" "+personDTO.getContactDTO().getEmail());
+		
+		// Autowirnig
+		
+		Department department = applicationContext.getBean("department",Department.class);
+		
+		System.out.println(department.getDeptCode()+" "+department.getDeptName()+" "+department.getEmployee1().getName()+" ");
+		
+		applicationContext.registerShutdownHook();
 	}
 
 }

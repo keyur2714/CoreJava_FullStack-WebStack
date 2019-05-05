@@ -10,4 +10,11 @@ public class SpringQuestionServiceImpl implements QuestionService{
 		return "What is Spring?";
 	}
 
+	public void init() {
+		System.out.println("Spring Question Service Impl Init...!");
+	}
+	
+	public void destroy() {
+		System.out.println("Spring Question Service Impl Destroy...!");
+	}
 }

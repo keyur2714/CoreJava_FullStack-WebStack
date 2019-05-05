@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+
+mainClassName = 'com.webstack.client.ClientTest'
+
+sourceSets {
+        main {
+                java {
+                        srcDirs= ["src/main/java"]
+                }
+                resources {
+                        srcDirs= ["resources"]
+                }
+        }
+}
+
+// tag::repositories[]
+repositories {
+    mavenCentral()
+}
+// end::repositories[]
+
+
+jar {
+	baseName = 'spring-di'
+    version =  '0.1.0'
+    manifest {
+        attributes 'Main-Class': 'com.webstack.client.ClientTest'
+    }
+     from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+// end::jar[]
+
+// tag::dependencies[]
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-core', version: '5.1.5.RELEASE'
+    compile 'org.springframework:spring-context:5.1.5.RELEASE'
+    
+    testCompile "junit:junit:4.12"
+}
+// end::dependencies[]
+
+// tag::wrapper[]
+// end::wrapper[]

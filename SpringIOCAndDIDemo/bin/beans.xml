@@ -3,7 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+		default-init-method="init"
+		default-destroy-method="destroy"
+		>
 
 
 	<context:component-scan base-package="com.webstack.object"></context:component-scan>
@@ -12,11 +15,11 @@
 		<property name="location" value="classpath:config.properties"></property>
 	</bean>
 
-	<bean id="messageBean" class="com.webstack.bean.Message" scope="prototype" >
+	<bean id="messageBean" class="com.webstack.bean.Message" scope="singleton" init-method="initMessage" destroy-method="destroyMessage">
 		<property name="message" value="Hello Radhe Krishna...!"></property>
 	</bean>
 
-	<bean id="springQuestionBean" class="com.webstack.service.impl.SpringQuestionServiceImpl">
+	<bean id="springQuestionBean" class="com.webstack.service.impl.SpringQuestionServiceImpl" >
 	</bean>
 
 	<bean id="angularQuestionBean" class="com.webstack.service.impl.AngularQuestionImpl">
@@ -31,5 +34,25 @@
 	
 	<bean id="examService" class="com.webstack.service.impl.ExamServiceImpl">
 		<property name="questionService" ref="springQuestionBean"></property>
-	</bean> 
+	</bean>
+	
+<!-- 	<bean id="employee1" class="com.webstack.bean.Employee" name="employee1" >
+		<property name="name" value="keyur"></property>
+		<property name="designation" value="Developer"></property>
+		<property name="salary" value="12112"></property>
+	</bean>
+ -->	
+	<bean class="com.webstack.bean.Employee" name="employee1" >
+		<property name="name" value="denish"></property>
+		<property name="designation" value="Developer"></property>
+		<property name="salary" value="12132"></property>
+	</bean>
+	
+	<bean id="department" class="com.webstack.bean.Department" autowire="byName">
+		<property name="deptCode" value="IT"></property>
+		<property name="deptName" value="Information Technology"></property>
+		<!-- <property name="employee1" ref="employee1"></property>
+		<property name="employee2" ref="employee2"></property> -->
+	</bean>
+	 
 </beans>
