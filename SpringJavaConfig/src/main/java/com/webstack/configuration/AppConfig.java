@@ -12,11 +12,15 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.webstack.bean.HelloBean;
 
 @Configuration
+@EnableTransactionManagement
 @ComponentScan("com.webstack.bean,com.webstack.repository")
 @PropertySource("classpath:db.properties")
 public class AppConfig {
@@ -48,6 +52,14 @@ public class AppConfig {
 	@Bean("jdbcTemplate")
 	public JdbcTemplate getJdbcTemplate() {
 		return new JdbcTemplate(dataSource);		
+	}
+	
+	
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+	      DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+	      transactionManager.setDataSource(dataSource);
+	      return transactionManager;
 	}
 	
 }

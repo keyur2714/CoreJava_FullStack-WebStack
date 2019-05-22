@@ -41,6 +41,22 @@ public class ClientTest {
 		
 		studentList.stream().forEach(s->System.out.println(s.getName()+" "+s.getId() +" " + s.getCity()+" "+s.getMobileNo()));
 		
+		Student newStudent = new Student();
+		newStudent.setName("Darsh");
+		newStudent.setCity("Navsari");
+		newStudent.setMobileNo("9898012143");
+		
+		int result = studentDAO.save(newStudent);
+		
+		if(result > 0) {
+			System.out.println("student information saved successfully...");
+		}
+		
+		System.out.println("======================After New Student==============");
+		
+		studentList = studentDAO.list(); 
+		
+		studentList.stream().forEach(s->System.out.println(s.getName()+" "+s.getId() +" " + s.getCity()+" "+s.getMobileNo()));
 		applicationContext.close();
 		
 	}
