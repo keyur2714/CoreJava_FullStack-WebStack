@@ -28,6 +28,9 @@ public class AppConfig implements WebMvcConfigurer {
         registry
           .addResourceHandler("/resources/**")
           .addResourceLocations("/resources/"); 
+        registry
+        .addResourceHandler("/webjars/**")
+        .addResourceLocations("/webjars/");
     }
 
 }

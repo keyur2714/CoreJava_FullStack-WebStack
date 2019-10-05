@@ -2,15 +2,16 @@ package com.webstack.dto;
 
 public class CourseDTO {
 
-	private Long id;
+	private Long courseId;
 	private String courseName;
 	private Double fees;
 	private String trainerName;
-	public Long getId() {
-		return id;
+	
+	public Long getCourseId() {
+		return courseId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
 	}
 	public String getCourseName() {
 		return courseName;

@@ -2,9 +2,11 @@
 <%@ page isELIgnored="false" %>
 <html>
 <head>	
-	<link rel='stylesheet' href='<c:url value="/resources/css/style.css" />' type='text/css' media='all' /> 
+	<link rel='stylesheet' href='<c:url value="/resources/css/style.css" />' type='text/css' media='all' />
+	<link href="webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+        rel="stylesheet"> 
 </head>
-<body>
+<div class="container bg-dark text-white">
 	<h2>Hello World, Spring MVC</h2>
 	
 	<p>Welcome, ${name}</p>
@@ -12,5 +14,5 @@
 	<p>
 		<a href="/spring-mvc-javaconfig/courseList">Manage Course</a>
 	</p>
-</body>
+</div>
 </html>
